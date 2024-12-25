@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 class BinaryTimeStop {
   List<String> binaryIntegers = List.empty();
 
-  int tick = 0;
+  int sec = 0;
+  int min = 0;
+  int hour = 0;
+
   String hhmmss = "000000";
 
   BinaryTimeStop() {
@@ -21,14 +24,36 @@ class BinaryTimeStop {
   get secondOnes => binaryIntegers[5];
 
   void resetTime() {
-    tick = 0;
+    sec = 0;
+    min = 0;
+    hour = 0;
     hhmmss = "000000";
     binaryIntegers = hhmmss.split('').map((str) => int.parse(str).toRadixString(2).padLeft(4, '0')).toList();
   }
 
   void updateTick(){
-    tick++;
-    hhmmss = tick.toString().padLeft(6, '0');
+    sec++;
+    
+    if(sec >= 60)
+    {
+      sec = 0;
+      min++;
+    }
+
+    if(min >= 60){
+      sec = 0;
+      min = 0;
+      hour++;
+    }
+
+    if(hour >= 24)
+    {
+      resetTime();
+      return;
+    }
+
+    hhmmss = "${hour}".padLeft(2,'0') + "${min}".padLeft(2, '0') + "${sec}".padLeft(2, '0');
+    
     binaryIntegers = hhmmss.split('').map((str) => int.parse(str).toRadixString(2).padLeft(4, '0')).toList();
   }
 }

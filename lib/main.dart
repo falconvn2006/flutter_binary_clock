@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: "Binary Clock",
       theme: ThemeData(
         brightness: Brightness.dark,
         textTheme: TextTheme(
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         appBar: AppBar(backgroundColor: Colors.blue,),
-        body: TimeStop(),
+        body: Clock(),
       ),
     );
   }
