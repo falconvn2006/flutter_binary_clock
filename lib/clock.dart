@@ -36,9 +36,10 @@ class _ClockState extends State<Clock> {
   @override
   void initState() {
     Timer.periodic(Duration(seconds: 1), (v) {
-      setState(() {
-        _now = BinaryTime();
-      });
+      if(mounted)
+        setState(() {
+            _now = BinaryTime();
+        });
     });
     super.initState();
   }

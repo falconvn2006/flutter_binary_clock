@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show SystemChrome, DeviceOrientation;
-import 'package:flutter_application_test/timestop.dart';
 
-import 'clock.dart';
+import 'home_page.dart';
 
 void main() {
   SystemChrome.setPreferredOrientations([
@@ -26,10 +25,7 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Alatsi',
       ),
-      home: Scaffold(
-        appBar: AppBar(backgroundColor: Colors.blue,),
-        body: Clock(),
-      ),
+      home: HomePage(),
     );
   }
 }

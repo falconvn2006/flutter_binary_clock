@@ -72,10 +72,14 @@ class _TimeStopState extends State<TimeStop> {
   @override
   void initState() {
     Timer.periodic(Duration(seconds: 1), (v) {
-      setState(() {
-        if(enabled)
-          _timeStop.updateTick();
-      });
+      if(mounted)
+      {
+        setState(() {
+          if(enabled)
+            _timeStop.updateTick();
+        });
+      }
+
     });
     super.initState();
   }
