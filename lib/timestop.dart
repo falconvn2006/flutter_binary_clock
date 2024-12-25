@@ -2,7 +2,6 @@ import 'dart:math';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class BinaryTimeStop {
   List<String> binaryIntegers = List.empty();
@@ -21,6 +20,12 @@ class BinaryTimeStop {
   get secondTens => binaryIntegers[4];
   get secondOnes => binaryIntegers[5];
 
+  void resetTime() {
+    tick = 0;
+    hhmmss = "000000";
+    binaryIntegers = hhmmss.split('').map((str) => int.parse(str).toRadixString(2).padLeft(4, '0')).toList();
+  }
+
   void updateTick(){
     tick++;
     hhmmss = tick.toString().padLeft(6, '0');
@@ -37,12 +42,14 @@ class TimeStop extends StatefulWidget {
 
 class _TimeStopState extends State<TimeStop> {
   BinaryTimeStop _timeStop = BinaryTimeStop();
+  bool enabled = false;
 
   @override
   void initState() {
     Timer.periodic(Duration(seconds: 1), (v) {
       setState(() {
-        _timeStop.updateTick();
+        if(enabled)
+          _timeStop.updateTick();
       });
     });
     super.initState();
@@ -88,6 +95,24 @@ class _TimeStopState extends State<TimeStop> {
             binaryInteger: _timeStop.secondOnes,
             title: 's',
             color: Colors.pinkAccent,
+          ),
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              FloatingActionButton(
+                child: enabled ? Icon(Icons.pause) : Icon(Icons.play_arrow),
+                onPressed: () => setState(() {
+                  enabled = !enabled;
+                })
+              ),
+              FloatingActionButton(
+                child: Icon(Icons.reset_tv),
+                onPressed: () => setState(() {
+                  _timeStop.resetTime();
+                  enabled = false;
+                }),
+              ),
+            ],
           ),
         ],
       ),
