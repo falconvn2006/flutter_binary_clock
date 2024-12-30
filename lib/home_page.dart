@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text(_currentPageIndex == 0 ? "Binary Clock" : _currentPageIndex == 1 ? "Binary Stopwatch" : ""),
         backgroundColor: Colors.blue,
+        centerTitle: true,
       ),
       body: _pages[_currentPageIndex],
       bottomNavigationBar: BottomNavigationBar(
